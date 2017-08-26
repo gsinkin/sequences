@@ -72,19 +72,19 @@ def get_next_value(
                 current_value, current_updater = _create_sequence(
                     sequence_id, start_value, range_size, alert_threshold,
                     new_updater, session)
-                # This should always be the case, else IntegrityError
-                if current_updater == new_updater:
-                    return current_value
+                return current_value
             except IntegrityError:
-                # Sequence created, just get next value
-                pass
+                # Sequence created in another process, just get next value
+                session.rollback()
+                session.begin()
         while current_updater != new_updater:
             # While this process is not the process that has set the new value
             # Attempt to increment the value
             current_value, current_updater = _increment_sequence(
                 sequence_id, current_updater, new_updater, session)
             # If this process failed to update the sequence
-            if not current_value:
+            if current_value is None:
+                # Get the successful updater and try again
                 current_value, current_updater = _get_sequence(
                     sequence_id, session)
 
