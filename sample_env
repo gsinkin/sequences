@@ -1,4 +1,4 @@
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:venv-sequences/bin
+PATH=venv-sequences/bin:$PATH
 DATABASE_URI=postgresql://user:password@localhost:5432/sequences_db
 DATABASE_TEST_URI=postgresql://user:password@localhost:5432/sequences_db_test
 PYTHONPATH=.

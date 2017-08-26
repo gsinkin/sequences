@@ -2,6 +2,8 @@
 Atomic, threadsafe, sequences as a service
 
 
+Setup
+
 1. `virtualenv --no-site-packages venv-sequences`
 1. `source venv-sequences/bin/activate`
 1. `pip install -r requirements.txt -r test_requirements.txt`
@@ -13,4 +15,7 @@ Atomic, threadsafe, sequences as a service
 1. `psql -U YOUR_POSTGRES_USER sequences_db_test < schema/001_sequences.sql`
 1. `cp sample_env .env`
 1. Edit the .env file with your DB connection credentials
-1. `py.test test/unit`
+
+Run tests
+
+1. `./env.sh py.test test/unit`
